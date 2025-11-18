@@ -260,6 +260,7 @@ export default {
             selectedItem: null,
             modal: null,
             deleteModal: null,
+            searchTimeout: null,
         };
     },
     mounted() {

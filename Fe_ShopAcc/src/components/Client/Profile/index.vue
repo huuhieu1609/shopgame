@@ -123,7 +123,7 @@
                             <!-- Tab Content -->
                             <div class="tab-content">
                                 <!-- Profile Tab -->
-                                <div v-show="activeTab === 'profile'" class="tab-pane show active" role="tabpanel">
+                                <div v-show="activeTab === 'profile'" class="tab-pane" :class="{ 'show active': activeTab === 'profile' }" role="tabpanel">
                                     <!-- Error/Success Alert -->
                                     <div v-if="error" class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Lỗi!</strong> {{ error }}
@@ -238,7 +238,7 @@
                                 </div>
                                 
                                 <!-- Change Password Tab -->
-                                <div v-show="activeTab === 'password'" class="tab-pane show active" role="tabpanel">
+                                <div v-show="activeTab === 'password'" class="tab-pane" :class="{ 'show active': activeTab === 'password' }" role="tabpanel">
                                     <!-- Error/Success Alert -->
                                     <div v-if="passwordError" class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Lỗi!</strong> {{ passwordError }}
@@ -372,7 +372,7 @@
                                 </div>
                                 
                                 <!-- History Tab (Orders) -->
-                                <div v-show="activeTab === 'history'" class="tab-pane show active" role="tabpanel">
+                                <div v-show="activeTab === 'history'" class="tab-pane" :class="{ 'show active': activeTab === 'history' }" role="tabpanel">
                                     <div v-if="loadingHistory" class="text-center py-4">
                                         <div class="spinner-border text-primary" role="status">
                                             <span class="visually-hidden">Loading...</span>
@@ -429,7 +429,7 @@
                                 </div>
 
                                 <!-- Transactions Tab (Deposit History) -->
-                                <div v-show="activeTab === 'transactions'" class="tab-pane show active" role="tabpanel">
+                                <div v-show="activeTab === 'transactions'" class="tab-pane" :class="{ 'show active': activeTab === 'transactions' }" role="tabpanel">
                                     <div v-if="loadingTransactions" class="text-center py-4">
                                         <div class="spinner-border text-primary" role="status">
                                             <span class="visually-hidden">Loading...</span>
@@ -931,14 +931,18 @@ export default {
     min-height: 400px;
 }
 
-/* Đảm bảo tab-pane hiển thị khi v-show = true */
+/* Đảm bảo tab-pane chỉ hiển thị khi active */
+.tab-pane {
+    display: none;
+}
+
 .tab-pane.show {
     display: block !important;
 }
 
-/* Override Bootstrap nếu cần */
-.tab-content > [v-show] {
-    display: block !important;
+/* Ẩn tất cả tab không active */
+.tab-pane:not(.show) {
+    display: none !important;
 }
 
 .form-label {

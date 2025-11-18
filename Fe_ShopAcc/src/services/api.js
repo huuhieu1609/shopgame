@@ -61,7 +61,7 @@ api.interceptors.response.use(
             const requiresAuth = currentPath.includes('/client/profile') ||
                                 currentPath.includes('/client/don-hang') ||
                                 currentPath.includes('/client/lich-su-mua-hang') ||
-                                currentPath.includes('/client/thanh-toan') ||
+                                currentPath.includes('/client/nap-tien') ||
                                 currentPath.includes('/client/chi-tiet-don-hang') ||
                                 currentPath.startsWith('/admin');
             

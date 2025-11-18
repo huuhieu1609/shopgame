@@ -38,10 +38,10 @@
                                 Tài Khoản
                             </router-link>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="/client/thanh-toan">
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/client/nap-tien" active-class="active">
                                 Nạp Tiền
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                     <!-- Right side: Language & User -->
@@ -74,7 +74,7 @@
                                         </router-link>
                                     </li>
                                     <li>
-                                        <router-link class="dropdown-item" to="/client/thanh-toan">
+                                        <router-link class="dropdown-item" to="/client/nap-tien">
                                             <i class="bx bx-wallet me-2"></i>
                                             Nạp tiền
                                         </router-link>
@@ -217,7 +217,7 @@ export default {
                     const requiresAuth = currentPath.includes('/client/profile') ||
                                         currentPath.includes('/client/don-hang') ||
                                         currentPath.includes('/client/lich-su-mua-hang') ||
-                                        currentPath.includes('/client/thanh-toan') ||
+                                        currentPath.includes('/client/nap-tien') ||
                                         currentPath.includes('/client/chi-tiet-don-hang');
                     
                     // Chỉ xóa user info nếu đang ở trang yêu cầu authentication

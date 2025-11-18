@@ -5,16 +5,8 @@
                 <div class="col-12 col-lg-10">
                     <!-- Header Messages -->
                     <div class="payment-header mb-4">
-                        <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
                             <strong>HUUHIEU.SHOP</strong> - SHOP CHUYÊN BÁN ACC REG + ACC RANDOM
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
-                            <strong>⚠️ LƯU Ý:</strong> NẠP GHI ĐÚNG NỘI DUNG, NHẬP SAI NỘI DUNG SẼ KHÔNG ĐƯỢC HOÀN LẠI
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
-                            <strong>ℹ️ THÔNG BÁO:</strong> HỆ THỐNG NẠP TIỀN TỰ ĐỘNG, NẾU QUÁ 5 PHÚT KHÔNG CỘNG TIỀN LIÊN HỆ ADMIN
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
@@ -98,112 +90,181 @@
                             </div>
                         </div>
 
-                        <!-- Right: Payment Info -->
+                        <!-- Right: Order Details and Accounts -->
                         <div class="col-lg-7">
-                            <!-- Bank Logo -->
-                            <div class="text-center mb-4">
-                                <div class="bank-logo-wrapper bank-logo-vcb">
-                                    <div class="bank-logo-text">VCB</div>
-                                </div>
-                            </div>
-
-                            <!-- Payment Card -->
-                            <div class="card payment-card border-0 shadow-lg animate-fade-in">
-                                <div class="card-body p-4 p-lg-5">
-                                    <!-- Bank Info -->
-                                    <div class="bank-info mb-4">
-                                        <div class="bank-item mb-3">
-                                            <div class="bank-label">Số tài khoản:</div>
-                                            <div class="bank-value d-flex align-items-center justify-content-between">
-                                                <span>VCB: 1039319824</span>
-                                                <button 
-                                                    class="btn btn-sm btn-outline-light copy-btn"
-                                                    @click="copyToClipboard('1039319824')"
-                                                >
-                                                    <i class="bx bx-copy me-1"></i>
-                                                    Copy
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="bank-item mb-3">
-                                            <div class="bank-label">Chủ TK:</div>
-                                            <div class="bank-value">Trần Hữu Hiếu</div>
-                                        </div>
-                                        <div class="bank-item mb-4">
-                                            <div class="bank-label">Nội Dung:</div>
-                                            <div class="bank-value d-flex align-items-center justify-content-between">
-                                                <span class="content-code">{{ noiDungChuyenKhoan }}</span>
-                                                <button 
-                                                    class="btn btn-sm btn-outline-light copy-btn"
-                                                    @click="copyToClipboard(noiDungChuyenKhoan)"
-                                                >
-                                                    <i class="bx bx-copy me-1"></i>
-                                                    Copy
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="payment-note">
-                                            <i class="bx bx-info-circle me-2"></i>
-                                            Nhập đúng nội dung tiền tự động cộng trong vài phút
-                                        </div>
+                            <!-- Order Success: Show Order Details and Accounts -->
+                            <div v-if="orderSuccess" class="order-success-section">
+                                <div class="card border-0 shadow-lg">
+                                    <div class="card-header bg-success text-white py-4">
+                                        <h4 class="mb-0 d-flex align-items-center gap-2">
+                                            <i class="bx bx-check-circle fs-4"></i>
+                                            <span>Đặt hàng thành công!</span>
+                                        </h4>
                                     </div>
-
-                                    <!-- QR Code Section -->
-                                    <div class="qr-section text-center">
-                                        <div class="qr-code-wrapper">
-                                            <img 
-                                                :src="qrCodeUrl" 
-                                                alt="QR Code" 
-                                                class="qr-code-image"
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <!-- Bank Logos Footer -->
-                                    <div class="payment-footer mt-4 pt-4 border-top border-light border-opacity-25">
-                                        <div class="d-flex align-items-center justify-content-center gap-4">
-                                            <div class="footer-logo">
-                                                <span class="napas-logo">napas 247</span>
-                                            </div>
-                                            <div class="footer-divider"></div>
-                                            <div class="footer-logo">
-                                                <span class="vcb-logo-footer">VCB</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Instructions -->
-                            <div class="payment-instructions mt-4">
-                                <div class="card border-0 shadow-sm">
                                     <div class="card-body p-4">
-                                        <h5 class="fw-bold mb-3">
-                                            <i class="bx bx-info-circle text-primary me-2"></i>
-                                            Hướng dẫn thanh toán
-                                        </h5>
-                                        <ol class="mb-0 ps-3">
-                                            <li class="mb-2">Mở ứng dụng ngân hàng trên điện thoại</li>
-                                            <li class="mb-2">Chọn tính năng quét QR code</li>
-                                            <li class="mb-2">Quét mã QR code ở trên</li>
-                                            <li class="mb-2">Kiểm tra thông tin và nhập đúng nội dung: <strong class="text-danger">{{ noiDungChuyenKhoan }}</strong></li>
-                                            <li class="mb-0">Xác nhận thanh toán và chờ hệ thống tự động cộng tiền</li>
-                                        </ol>
+                                        <!-- Order Details -->
+                                        <div class="order-details-section mb-4">
+                                            <h5 class="fw-bold mb-3">
+                                                <i class="bx bx-package me-2 text-primary"></i>
+                                                Chi tiết đơn hàng
+                                            </h5>
+                                            <div class="row g-3 mb-3">
+                                                <div class="col-6">
+                                                    <div class="info-box p-3 bg-light rounded">
+                                                        <div class="text-muted small mb-1">Mã đơn hàng</div>
+                                                        <div class="fw-bold fs-5">#{{ createdOrderId }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="info-box p-3 bg-light rounded">
+                                                        <div class="text-muted small mb-1">Tổng tiền</div>
+                                                        <div class="fw-bold fs-5 text-success">{{ formatCurrency(tongTien) }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-box p-3 bg-light rounded">
+                                                <div class="text-muted small mb-1">Ngày đặt hàng</div>
+                                                <div class="fw-semibold">{{ formatDate(new Date()) }}</div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-4">
+
+                                        <!-- Accounts Section -->
+                                        <div class="accounts-section">
+                                            <h5 class="fw-bold mb-3">
+                                                <i class="bx bx-user me-2 text-primary"></i>
+                                                Thông tin tài khoản đã mua
+                                            </h5>
+
+                                            <div v-if="loadingAccounts" class="text-center py-4">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Đang tải...</span>
+                                                </div>
+                                                <p class="mt-3 text-muted">Đang tải thông tin tài khoản...</p>
+                                            </div>
+
+                                            <div v-else-if="accounts.length > 0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th class="text-center" style="width: 60px;">#</th>
+                                                                <th>Username</th>
+                                                                <th>Password</th>
+                                                                <th v-if="hasEmail">Email/Thông tin</th>
+                                                                <th class="text-center" style="width: 100px;">Thao tác</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(account, index) in accounts" :key="account.id || index">
+                                                                <td class="text-center fw-semibold">{{ index + 1 }}</td>
+                                                                <td>
+                                                                    <strong class="text-primary">{{ account.username || 'N/A' }}</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong class="text-success">{{ account.password || 'N/A' }}</strong>
+                                                                </td>
+                                                                <td v-if="hasEmail">
+                                                                    <span class="text-muted">{{ account.email || account.thong_tin_bo_sung || 'N/A' }}</span>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button 
+                                                                        class="btn btn-sm btn-outline-primary"
+                                                                        @click="copyAccount(account)"
+                                                                        title="Copy tài khoản"
+                                                                    >
+                                                                        <i class="bx bx-copy"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button 
+                                                        class="btn btn-primary w-100"
+                                                        @click="copyAllAccounts"
+                                                    >
+                                                        <i class="bx bx-copy me-2"></i>
+                                                        Copy tất cả tài khoản
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div v-else class="alert alert-warning">
+                                                <i class="bx bx-info-circle me-2"></i>
+                                                Chưa có thông tin tài khoản. Vui lòng liên hệ admin để được hỗ trợ.
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-3 mt-4">
+                                            <router-link to="/client/lich-su-mua-hang" class="btn btn-outline-primary flex-grow-1">
+                                                <i class="bx bx-history me-2"></i>
+                                                Xem lịch sử đơn hàng
+                                            </router-link>
+                                            <router-link to="/" class="btn btn-primary flex-grow-1">
+                                                <i class="bx bx-home me-2"></i>
+                                                Về trang chủ
+                                            </router-link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Confirm Payment Button -->
-                            <div class="mt-4">
-                                <button 
-                                    class="btn btn-success btn-lg w-100 fw-bold py-3"
-                                    @click="confirmPayment"
-                                    :disabled="!sanPham || confirming"
-                                >
-                                    <span v-if="confirming" class="spinner-border spinner-border-sm me-2"></span>
-                                    <i v-else class="bx bx-check-circle me-2"></i>
-                                    {{ confirming ? 'Đang xử lý...' : 'XÁC NHẬN ĐÃ THANH TOÁN' }}
-                                </button>
+                            <!-- Before Order: Show Order Summary and Buy Button -->
+                            <div v-else>
+                                <div class="card border-0 shadow-lg">
+                                    <div class="card-body p-4">
+                                        <h4 class="fw-bold mb-4">
+                                            <i class="bx bx-shopping-bag me-2 text-primary"></i>
+                                            Xác nhận đơn hàng
+                                        </h4>
+                                        
+                                        <div class="alert alert-info mb-4">
+                                            <i class="bx bx-info-circle me-2"></i>
+                                            <strong>Lưu ý:</strong> Khi đặt hàng, tiền sẽ được trừ trực tiếp từ số dư tài khoản của bạn. 
+                                            Tài khoản sẽ được hiển thị ngay sau khi đặt hàng thành công.
+                                        </div>
+
+                                        <!-- Order Summary -->
+                                        <div class="order-summary p-3 bg-light rounded mb-4">
+                                            <h6 class="fw-bold mb-3">Tóm tắt đơn hàng</h6>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Sản phẩm:</span>
+                                                <strong>{{ sanPham?.ten || 'N/A' }}</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Số lượng:</span>
+                                                <strong>{{ soLuong }}</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Đơn giá:</span>
+                                                <strong>{{ formatCurrency(sanPham?.gia || 0) }}</strong>
+                                            </div>
+                                            <div v-if="maGiamGia" class="d-flex justify-content-between mb-2">
+                                                <span>Giảm giá:</span>
+                                                <strong class="text-success">-{{ formatCurrency(giamGia) }}</strong>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <span class="fw-bold fs-5">Tổng tiền:</span>
+                                                <strong class="text-danger fs-4">{{ formatCurrency(tongTien) }}</strong>
+                                            </div>
+                                        </div>
+
+                                        <!-- Buy Button -->
+                                        <button 
+                                            class="btn btn-success btn-lg w-100 fw-bold py-3"
+                                            @click="confirmPayment"
+                                            :disabled="!sanPham || confirming"
+                                        >
+                                            <span v-if="confirming" class="spinner-border spinner-border-sm me-2"></span>
+                                            <i v-else class="bx bx-check-circle me-2"></i>
+                                            {{ confirming ? 'Đang xử lý...' : 'ĐẶT HÀNG NGAY' }}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,7 +292,10 @@ export default {
             discountError: '',
             discountSuccess: '',
             confirming: false,
-            noiDungChuyenKhoan: 'MT61',
+            orderSuccess: false,
+            createdOrderId: null,
+            accounts: [],
+            loadingAccounts: false,
         };
     },
     computed: {
@@ -253,10 +317,10 @@ export default {
             }
             return discount;
         },
-        qrCodeUrl() {
-            const amount = this.tongTien;
-            const content = this.noiDungChuyenKhoan;
-            return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021238570010A00000072701270006970416010910393198240208QRIBFTTA53037045406${amount}5802VN62080703${content}6304`;
+        hasEmail() {
+            return this.accounts.some(acc => {
+                return acc.email || (acc.thong_tin_bo_sung && acc.thong_tin_bo_sung.toLowerCase().includes('email'));
+            });
         }
     },
     async mounted() {
@@ -276,9 +340,6 @@ export default {
         } else {
             this.loadingProduct = false;
         }
-
-        // Tạo mã nội dung chuyển khoản ngẫu nhiên
-        this.generateNoiDung();
     },
     methods: {
         async loadSanPham(id) {
@@ -334,31 +395,54 @@ export default {
                 return;
             }
 
-            if (!confirm('Bạn đã chuyển khoản thành công? Vui lòng đảm bảo đã nhập đúng nội dung chuyển khoản!')) {
+            // Get user ID from localStorage
+            const userStr = localStorage.getItem('user');
+            const user = userStr ? JSON.parse(userStr) : null;
+            const clientId = user?.id;
+
+            if (!clientId) {
+                alert('Vui lòng đăng nhập lại!');
+                this.$router.push('/client/dang-nhap');
                 return;
             }
 
             this.confirming = true;
 
             try {
-                // Tạo đơn hàng
+                // Tạo đơn hàng với format đúng cho backend
                 const orderData = {
-                    san_pham_id: this.sanPham.id,
-                    so_luong: this.soLuong,
+                    khach_hang_id: clientId,
                     tong_tien: this.tongTien,
+                    trang_thai: 'cho_xu_ly',
                     ma_giam_gia_id: this.maGiamGia?.id || null,
-                    noi_dung_chuyen_khoan: this.noiDungChuyenKhoan,
-                    ghi_chu: `Thanh toán cho sản phẩm: ${this.sanPham.ten}`,
+                    ghi_chu: `Đặt hàng sản phẩm: ${this.sanPham.ten}`,
+                    chi_tiet: [{
+                        san_pham_id: this.sanPham.id,
+                        so_luong: this.soLuong,
+                        gia: this.sanPham.gia,
+                    }]
                 };
 
-                const response = await clientOrderService.createOrder(orderData);
+                const response = await api.post('/client/don-hang', orderData, {
+                    headers: {
+                        'X-Client-Id': clientId
+                    },
+                    params: {
+                        client_id: clientId
+                    }
+                });
 
                 if (response.data.success) {
+                    const order = response.data.data;
+                    this.createdOrderId = order.id;
+                    
                     // Dispatch event để menu cập nhật số dư
                     window.dispatchEvent(new Event('user-updated'));
                     
-                    alert('Đặt hàng thành công! Vui lòng chờ hệ thống xử lý.');
-                    this.$router.push('/client/lich-su-mua-hang');
+                    // Lấy thông tin tài khoản từ đơn hàng
+                    await this.loadOrderAccounts(order.id, this.sanPham.id);
+                    
+                    this.orderSuccess = true;
                 } else {
                     alert(response.data.message || 'Có lỗi xảy ra khi đặt hàng');
                 }
@@ -366,6 +450,10 @@ export default {
                 console.error('Error creating order:', error);
                 if (error.response?.data?.message) {
                     alert(error.response.data.message);
+                } else if (error.response?.data?.errors) {
+                    const errors = error.response.data.errors;
+                    const errorMsg = Object.values(errors).flat().join(', ');
+                    alert(errorMsg);
                 } else {
                     alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!');
                 }
@@ -373,10 +461,47 @@ export default {
                 this.confirming = false;
             }
         },
+        async loadOrderAccounts(orderId, productId) {
+            this.loadingAccounts = true;
+            try {
+                const userStr = localStorage.getItem('user');
+                const user = userStr ? JSON.parse(userStr) : null;
+                const clientId = user?.id;
+
+                const response = await api.get(`/client/don-hang/${orderId}/san-pham/${productId}/tai-khoan`, {
+                    headers: {
+                        'X-Client-Id': clientId
+                    },
+                    params: {
+                        client_id: clientId
+                    }
+                });
+
+                if (response.data.success) {
+                    this.accounts = response.data.data || [];
+                }
+            } catch (error) {
+                console.error('Error loading accounts:', error);
+            } finally {
+                this.loadingAccounts = false;
+            }
+        },
+        copyAccount(account) {
+            const text = `${account.username}|${account.password}`;
+            this.copyToClipboard(text);
+        },
+        copyAllAccounts() {
+            if (this.accounts.length === 0) return;
+            
+            const text = this.accounts
+                .map(acc => `${acc.username}|${acc.password}`)
+                .join('\n');
+            this.copyToClipboard(text);
+        },
         copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 // Show toast notification
-                alert('Đã copy: ' + text);
+                alert('Đã copy vào clipboard!');
             }).catch(() => {
                 // Fallback
                 const textarea = document.createElement('textarea');
@@ -385,13 +510,20 @@ export default {
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert('Đã copy: ' + text);
+                alert('Đã copy vào clipboard!');
             });
         },
-        generateNoiDung() {
-            // Tạo mã ngẫu nhiên cho nội dung chuyển khoản
-            const random = Math.floor(Math.random() * 10000);
-            this.noiDungChuyenKhoan = `MT${random.toString().padStart(4, '0')}`;
+        formatDate(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.toLocaleString('vi-VN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
         },
         formatCurrency(value) {
             if (!value) return '0 ₫';
@@ -668,5 +800,28 @@ export default {
     .content-code {
         font-size: 1.1rem;
     }
+}
+
+/* Account Info Section */
+.account-info-section {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.account-item {
+    transition: all 0.3s ease;
+}
+
+.account-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.account-item .card-body {
+    background: #f8f9fa;
+}
+
+.account-item strong {
+    color: #0d6efd;
+    font-size: 1.1rem;
 }
 </style>

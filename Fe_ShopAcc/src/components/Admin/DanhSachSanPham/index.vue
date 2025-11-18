@@ -788,6 +788,7 @@ export default {
             saving: false,
             deleting: false,
             danhMucs: [],
+            searchTimeout: null,
         };
     },
     async mounted() {

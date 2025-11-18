@@ -196,6 +196,7 @@
 
 <script>
 import { clientService } from '@/services/clientService';
+import api from '@/services/api';
 
 export default {
     name: 'ChiTietSanPham',
@@ -253,7 +254,7 @@ export default {
                 this.loading = false;
             }
         },
-        muaNgay() {
+        async muaNgay() {
             if (!this.sanPham) return;
             
             // Kiểm tra đăng nhập
@@ -263,15 +264,67 @@ export default {
                 this.$router.push('/client/dang-nhap');
                 return;
             }
-            
-            // Chuyển đến trang thanh toán với sản phẩm đã chọn
-            this.$router.push({
-                path: '/client/thanh-toan',
-                query: {
-                    san_pham_id: this.sanPham.id,
-                    so_luong: 1
+
+            // Get user ID from localStorage
+            const userStr = localStorage.getItem('user');
+            const user = userStr ? JSON.parse(userStr) : null;
+            const clientId = user?.id;
+
+            if (!clientId) {
+                alert('Vui lòng đăng nhập lại!');
+                this.$router.push('/client/dang-nhap');
+                return;
+            }
+
+            if (!confirm(`Bạn có chắc chắn muốn mua sản phẩm "${this.sanPham.ten}" với giá ${this.formatCurrency(this.sanPham.gia)}?`)) {
+                return;
+            }
+
+            try {
+                // Tạo đơn hàng trực tiếp
+                const orderData = {
+                    khach_hang_id: clientId,
+                    tong_tien: this.sanPham.gia,
+                    trang_thai: 'cho_xu_ly',
+                    ma_giam_gia_id: null,
+                    ghi_chu: `Đặt hàng sản phẩm: ${this.sanPham.ten}`,
+                    chi_tiet: [{
+                        san_pham_id: this.sanPham.id,
+                        so_luong: 1,
+                        gia: this.sanPham.gia,
+                    }]
+                };
+
+                const response = await api.post('/client/don-hang', orderData, {
+                    headers: {
+                        'X-Client-Id': clientId
+                    },
+                    params: {
+                        client_id: clientId
+                    }
+                });
+
+                if (response.data.success) {
+                    const order = response.data.data;
+                    // Dispatch event để menu cập nhật số dư
+                    window.dispatchEvent(new Event('user-updated'));
+                    // Chuyển đến trang chi tiết đơn hàng để xem tài khoản
+                    this.$router.push(`/client/chi-tiet-don-hang/${order.id}`);
+                } else {
+                    alert(response.data.message || 'Có lỗi xảy ra khi đặt hàng');
                 }
-            });
+            } catch (error) {
+                console.error('Error creating order:', error);
+                if (error.response?.data?.message) {
+                    alert(error.response.data.message);
+                } else if (error.response?.data?.errors) {
+                    const errors = error.response.data.errors;
+                    const errorMsg = Object.values(errors).flat().join(', ');
+                    alert(errorMsg);
+                } else {
+                    alert('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại!');
+                }
+            }
         },
         themVaoGio() {
             // TODO: Implement add to wishlist/cart

@@ -32,8 +32,8 @@ const routes = [
         }
     },
     {
-        path : '/client/thanh-toan',
-        component: ()=>import('../components/Client/ThanhToan/index.vue'),
+        path : '/client/nap-tien',
+        component: ()=>import('../components/Client/NapTien/index.vue'),
         meta: {
             layout: 'indexClient'
         }

@@ -13,6 +13,7 @@ class ChiTietTaiKhoan extends Model
 
     protected $fillable = [
         'san_pham_id',
+        'don_hang_id',
         'username',
         'password',
         'thong_tin_bo_sung',
@@ -33,6 +34,14 @@ class ChiTietTaiKhoan extends Model
     public function sanPham()
     {
         return $this->belongsTo(SanPham::class, 'san_pham_id');
+    }
+
+    /**
+     * Quan hệ với đơn hàng
+     */
+    public function donHang()
+    {
+        return $this->belongsTo(DonHang::class, 'don_hang_id');
     }
 }
 
